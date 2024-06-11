@@ -1,0 +1,113 @@
+.homePage{
+    background-color: #3B3B3B;
+    padding: 20px;
+}
+
+.topContainer{
+    margin-bottom: 32px;
+}
+
+.contentContainer{
+    background-color: #626262;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 50px;
+}
+.cardContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.card{
+    background-color: #9B9B9B;
+    padding: 25px;
+    border-radius: 15px;
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.walletHeading{
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.balance{
+    color: #9DFF5B;
+}
+.expense{
+    color: #F4BB4A;
+}
+
+.addButton{
+    outline: none;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 15px;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.incomeButton{
+    background: linear-gradient(90deg, #B5DC52 0%, #89E148 100%);
+}
+
+.expenseButton{
+    background: linear-gradient(90deg, #FF9595 0%, #FF4747 80%, #FF3838 100%);
+}
+
+
+.bottomContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 30px;
+}
+.leftContainer{
+    width: 50%;
+}
+.rightContainer{
+    width: 50%;
+}
+.transactionList{
+    background-color: #fff;
+    color: #000;
+    border-radius: 15px;
+    padding: 25px;
+}
+.transactionRow, .rowChild{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.transactionRow{
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+    margin: 30px 0 10px;
+}
+
+.rowChild{
+    gap: 17px;
+    align-items: flex-start;
+}
+
+.icon{
+    background-color: #d9d9d9;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.rowTitle, .rowDate{
+    font-size: 16px;
+}
+
+.rowDate{
+    color: #9B9B9B;
+}

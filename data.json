@@ -1,0 +1,45 @@
+[
+    {
+      "title": "Movie Ticket",
+      "date": "2024-06-10",
+      "category": "Entertainment",
+      "amount": 15.50,
+      "id": 1
+    },
+    {
+      "title": "Grocery Shopping",
+      "date": "2024-06-09",
+      "category": "Food",
+      "amount": 78.25,
+      "id": 2
+    },
+    {
+      "title": "Coffee Shop Visit",
+      "date": "2024-06-08",
+      "category": "Food",
+      "amount": 5.25,
+      "id": 3
+    },
+    {
+      "title": "Restaurant Dinner",
+      "date": "2024-06-04",
+      "category": "Food",
+      "amount": 67.80,
+      "id": 7
+    },
+    {
+      "title": "Movie Streaming Service",
+      "date": "2024-06-02",
+      "category": "Entertainment",
+      "amount": 14.99,
+      "id": 9
+    },
+    {
+      "title": "Lunch with Colleague",
+      "date": "2024-05-27",
+      "category": "Food",
+      "amount": 11.25,
+      "id": 15
+    }
+  ]
+  
