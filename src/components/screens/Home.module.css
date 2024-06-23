@@ -53,6 +53,7 @@
     border-radius: 15px;
     color: #FFFFFF;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .incomeButton{
@@ -110,4 +111,20 @@
 
 .rowDate{
     color: #9B9B9B;
+}
+
+.chart{
+    width: 35%;
+}
+.transactionsWrapper{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap:32px;
+}
+
+/*Mobile styles*/
+@media(max-width:767px){
+    .transactionsWrapper{
+        grid-template-columns: 1fr;
+    }
 }

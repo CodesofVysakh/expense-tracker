@@ -1,52 +1,106 @@
 import React, { useEffect, useState } from "react";
-import styles from './Home.module.css'
+import styles from "./Home.module.css";
 import PieChart from "../charts/PieChart";
+import TransactionList from "./TransactionList/TransactionList";
+import BarChartComponent from "../charts/BarChart";
+import ModalWrapper from "../Modal/Modal";
+import ExpenseForm from "../Forms/ExpenseForm";
+import AddBalanceForm from "../Forms/AddBalanceForm";
 
 function HomePage() {
-    const [data, setData] = useState([
-        {
-            "title": "Movie Ticket",
-            "date": "2024-06-10",
-            "category": "Entertainment",
-            "amount": 15.50,
-            "id": 1
-          },
-          {
-            "title": "Grocery Shopping",
-            "date": "2024-06-09",
-            "category": "Food",
-            "amount": 78.25,
-            "id": 2
-          },
-          {
-            "title": "Coffee Shop Visit",
-            "date": "2024-06-08",
-            "category": "Food",
-            "amount": 5.25,
-            "id": 3
-          },
-          {
-            "title": "Restaurant Dinner",
-            "date": "2024-06-04",
-            "category": "Food",
-            "amount": 67.80,
-            "id": 7
-          },
-          {
-            "title": "Movie Streaming Service",
-            "date": "2024-06-02",
-            "category": "Entertainment",
-            "amount": 14.99,
-            "id": 9
-          },
-          {
-            "title": "Lunch with Colleague",
-            "date": "2024-05-27",
-            "category": "Food",
-            "amount": 11.25,
-            "id": 15
-          }
-    ]);
+    const [balance, setBalance] = useState(0);
+    const [expense, setExpense] = useState(0);
+    const [expenseList, setExpenseList] = useState([]);
+    const [isMounted, setIsMounted] = useState(false);
+
+    const [isOpenExpense, setIsOpenExpense] = useState(false);
+    const [isOpenBalance, setIsOpenBalance] = useState(false);
+
+    const [categorySpends, setCategorySpends] = useState({
+        food: 0,
+        entertainment: 0,
+        travel: 0,
+    });
+    const [categoryCount, setCategoryCount] = useState({
+        food: 0,
+        entertainment: 0,
+        travel: 0,
+    });
+
+    useEffect(() => {
+        //Check localStorage
+        const localBalance = localStorage.getItem("balance");
+
+        if (localBalance) {
+            setBalance(Number(localBalance));
+        } else {
+            setBalance(5000);
+            localStorage.setItem("balance", 5000);
+        }
+
+        const items = JSON.parse(localStorage.getItem("expenses"));
+
+        setExpenseList(items || []);
+        setIsMounted(true);
+    }, []);
+
+    // saving expense list in localStorage
+    useEffect(() => {
+        if (expenseList.length > 0 || isMounted) {
+            localStorage.setItem("expenses", JSON.stringify(expenseList));
+        }
+
+        if (expenseList.length > 0) {
+            setExpense(
+                expenseList.reduce(
+                    (accumulator, currentValue) =>
+                        accumulator + Number(currentValue.price),
+                    0
+                )
+            );
+        } else {
+            setExpense(0);
+        }
+
+        let foodSpends = 0,
+            entertainmentSpends = 0,
+            travelSpends = 0;
+        let foodCount = 0,
+            entertainmentCount = 0,
+            travelCount = 0;
+
+        expenseList.forEach((item) => {
+            if (item.category == "food") {
+                foodSpends += Number(item.price);
+                foodCount++;
+            } else if (item.category == "entertainment") {
+                entertainmentSpends += Number(item.price);
+                entertainmentCount++;
+            } else if (item.category == "travel") {
+                travelSpends += Number(item.price);
+                travelCount++;
+            }
+        });
+
+        setCategorySpends({
+            food: foodSpends,
+            travel: travelSpends,
+            entertainment: entertainmentSpends,
+        });
+
+        setCategoryCount({
+            food: foodCount,
+            travel: travelCount,
+            entertainment: entertainmentCount,
+        });
+    }, [expenseList]);
+
+    // saving balance in localStorage
+    useEffect(() => {
+        if (isMounted) {
+            localStorage.setItem("balance", balance);
+        }
+    }, [balance]);
 
     return (
         <section className={styles.homePage}>
@@ -55,53 +109,87 @@ function HomePage() {
                 <div className={styles.contentContainer}>
                     <div className={styles.cardContainer}>
                         <div className={styles.card}>
-                            <h3 className={styles.walletHeading}>Wallet Balance: <span className={styles.balance}>₹4500</span></h3>
-                            <button className={`${styles.addButton} ${styles.incomeButton}`}>Add Income</button>
+                            <h3 className={styles.walletHeading}>
+                                Wallet Balance:{" "}
+                                <span className={styles.balance}>
+                                    ₹{balance}
+                                </span>
+                            </h3>
+                            <button
+                                className={`${styles.addButton} ${styles.incomeButton}`}
+                                onClick={() => setIsOpenBalance(true)}
+                            >
+                                Add Income
+                            </button>
                         </div>
                         <div className={styles.card}>
-                            <h3 className={styles.walletHeading}>Expenses: <span className={styles.expense}>₹500</span></h3>
-                            <button className={`${styles.addButton} ${styles.expenseButton}`}>Add Expense</button>
+                            <h3 className={styles.walletHeading}>
+                                Expenses:{" "}
+                                <span className={styles.expense}>
+                                    ₹{expense}
+                                </span>
+                            </h3>
+                            <button
+                                className={`${styles.addButton} ${styles.expenseButton}`}
+                                onClick={() => setIsOpenExpense(true)}
+                            >
+                                Add Expense
+                            </button>
                         </div>
                     </div>
-                    <div className="chart">
-                        <PieChart />
+                    <div className={styles.chart}>
+                        <PieChart
+                            data={[
+                                { name: "Food", value: categorySpends.food },
+                                {
+                                    name: "Entertainment",
+                                    value: categorySpends.entertainment,
+                                },
+                                {
+                                    name: "Travel",
+                                    value: categorySpends.travel,
+                                },
+                            ]}
+                        />
                     </div>
                 </div>
             </div>
-            <div className={styles.bottomContainer}>
-                <div className={styles.leftContainer}>
-                    <h3>Recent Transactions</h3>
-                    <ul className={styles.transactionList}>
-                        {
-                            data.map((item, i) => (
-                                <li className={styles.transactionRow} >
-                                    <div className={styles.rowChild}>
-                                        <div className={styles.icon}>Ok</div>
-                                        <div className="content">
-                                            <h6 className={styles.rowTitle}>{item.title}</h6>
-                                            <small className={styles.rowDate}>{item.date}</small>
-                                        </div>
-                                    </div>
-                                    <div className={styles.rowChild}>
-                                        <span>₹{item.amount}</span>
-                                        <div className="delete-icon">D</div>
-                                        <div className="edit-icon">E</div>
-                                    </div>
-                                </li>
-                            ))
-                        }
-                        <div className="pagination">
-                            page 1
-                        </div>
-                    </ul>
-                </div>
-                <div className={styles.rightContainer}>
-                    <h3>Top Expenses</h3>
-                    <div className="level-chart-container">
+            <div className={styles.transactionsWrapper}>
+                <TransactionList
+                    transactions={expenseList}
+                    editTransactions={setExpenseList}
+                    title="Recent Transactions"
+                    balance={balance}
+                    setBalance={setBalance}
+                />
 
-                    </div>
-                </div>
+                <BarChartComponent
+                    data={[
+                        { name: "Food", value: categorySpends.food },
+                        {
+                            name: "Entertainment",
+                            value: categorySpends.entertainment,
+                        },
+                        { name: "Travel", value: categorySpends.travel },
+                    ]}
+                />
             </div>
+            <ModalWrapper isOpen={isOpenExpense} setIsOpen={setIsOpenExpense}>
+                <ExpenseForm
+                    setIsOpen={setIsOpenExpense}
+                    expenseList={expenseList}
+                    setExpenseList={setExpenseList}
+                    setBalance={setBalance}
+                    balance={balance}
+                />
+            </ModalWrapper>
+
+            <ModalWrapper isOpen={isOpenBalance} setIsOpen={setIsOpenBalance}>
+                <AddBalanceForm
+                    setIsOpen={setIsOpenBalance}
+                    setBalance={setBalance}
+                />
+            </ModalWrapper>
         </section>
     );
 }
