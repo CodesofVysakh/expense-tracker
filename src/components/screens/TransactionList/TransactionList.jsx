@@ -20,16 +20,16 @@ export default function TransactionList({
     const [totalPages, setTotalPages] = useState(0);
 
     const handlePrev = () => {
-        if(currentPage > 1){
-            setCurrentPage(prev => prev - 1)
+        if (currentPage > 1) {
+            setCurrentPage((prev) => prev - 1);
         }
-    }
+    };
 
     const handleNext = () => {
-        if(totalPages != currentPage){
-            setCurrentPage(prev => prev + 1)
+        if (totalPages != currentPage) {
+            setCurrentPage((prev) => prev + 1);
         }
-    }
+    };
 
     const handleDelete = (id) => {
         const item = transactions.find((i) => i.id == id);

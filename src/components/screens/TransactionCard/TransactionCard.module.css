@@ -1,80 +1,80 @@
-.card{
-    border-bottom:1px solid #9B9B9B;
+.card {
+    border-bottom: 1px solid #9b9b9b;
     padding-bottom: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     margin-bottom: 24px;
 }
-.cardInner{
+.cardInner {
     display: flex;
-    gap:20px;
+    gap: 20px;
     align-items: center;
 }
-.cardIcon{
-    background: #D9D9D9;
+.cardIcon {
+    background: #d9d9d9;
     border-radius: 50%;
-    padding:10px;
-    font-size:1.2rem;
+    padding: 10px;
+    font-size: 1.2rem;
 }
-.cardInfo h5{
+.cardInfo h5 {
     font-family: var(--font-body);
     font-size: 1rem;
-    color:#000;
+    color: #000;
     font-weight: 400;
 }
-.cardInfo p{
-    color: #9B9B9B;
+.cardInfo p {
+    color: #9b9b9b;
     font-size: 1rem;
 }
-.cardPrice{
-    color:#F4BB4A;
+.cardPrice {
+    color: #f4bb4a;
     font-weight: 700;
 }
-.cardButtonWrapper { 
+.cardButtonWrapper {
     display: flex;
-    gap:8px;
+    gap: 8px;
 }
-.cardButtonWrapper button{
-    padding:12px;
+.cardButtonWrapper button {
+    padding: 12px;
     border-radius: 15px;
-    border:0;
-    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+    border: 0;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 1.4rem;
     cursor: pointer;
-    color:#fff;
+    color: #fff;
 }
-.cardDelete{
-    background: #FF3E3E;
+.cardDelete {
+    background: #ff3e3e;
     display: flex;
     align-items: center;
 }
-.cardEdit{
-    background: #F4BB4A;
+.cardEdit {
+    background: #f4bb4a;
     display: flex;
     align-items: center;
 }
 
-@media(max-width:767px){
-    .card{
+@media (max-width: 768px) {
+    .card {
         flex-direction: column;
         align-items: flex-start;
     }
-    .cardInner{
-        gap:12px;
+    .cardInner {
+        gap: 12px;
     }
-    .cardInner:last-child{
+    .cardInner:last-child {
         padding-left: 3.3rem;
         justify-content: space-between;
         width: 100%;
     }
-    .cardButtonWrapper button{
+    .cardButtonWrapper button {
         font-size: 1.2rem;
-        padding:8px;
+        padding: 8px;
         border-radius: 0.5rem;
     }
-    .cardInfo p{
+    .cardInfo p {
         font-size: 12px;
     }
 }

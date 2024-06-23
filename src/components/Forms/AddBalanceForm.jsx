@@ -1,46 +1,45 @@
-import styles from './Forms.module.css'
-import Button from '../Button/Button.jsx'
-import { useState } from 'react'
-import { useSnackbar } from 'notistack';
+import styles from "./Forms.module.css";
+import Button from "../Button/Button.jsx";
+import { useState } from "react";
+import { useSnackbar } from "notistack";
 
 export default function AddBalanceForm({ setIsOpen, setBalance }) {
-
-    const [income, setIncome] = useState('')
+    const [income, setIncome] = useState("");
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (Number(income) < 0) {
-            enqueueSnackbar("Income should be greater than 0", { variant: "warning" })
-            setIsOpen(false)
-            return
+            enqueueSnackbar("Income should be greater than 0", {
+                variant: "warning",
+            });
+            setIsOpen(false);
+            return;
         }
 
-        setBalance(prev => prev + Number(income))
-        setIsOpen(false)
-    }
+        setBalance((prev) => prev + Number(income));
+        setIsOpen(false);
+    };
 
     return (
-
         <div className={styles.formWrapper}>
             <h3>Add Balance</h3>
-            <form onSubmit={handleSubmit}
-                className={styles.AddBalanceForm}
-            >
-
+            <form onSubmit={handleSubmit} className={styles.AddBalanceForm}>
                 <input
                     type="number"
-                    placeholder='Income Amount'
+                    placeholder="Income Amount"
                     value={income}
                     onChange={(e) => setIncome(e.target.value)}
                     required
                 />
 
-                <Button type="submit" style="primary" shadow>Add Balance</Button>
+                <Button type="submit" style="primary" shadow>
+                    Add Balance
+                </Button>
 
                 <Button
-                    style='secondary'
+                    style="secondary"
                     shadow
                     handleClick={() => setIsOpen(false)}
                 >
@@ -48,6 +47,5 @@ export default function AddBalanceForm({ setIsOpen, setBalance }) {
                 </Button>
             </form>
         </div>
-
-    )
+    );
 }
